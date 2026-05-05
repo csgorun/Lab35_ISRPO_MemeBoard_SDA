@@ -12,7 +12,7 @@
 ### 1. Запуск Backend (API)
 Откройте терминал в папке проекта `MemesApi` и выполните команду:
 ```bash
-cd MemesApi
+cd MemesApigit add .
 dotnet run
 ```
 API будет доступно по адресу: `http://localhost:5117`
