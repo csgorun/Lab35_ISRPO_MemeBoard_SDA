@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MemesApi.Models;
 using MemesApi.Data;
+using System;
+using System.Collections.Generic;
 
 namespace MemesApi.Controllers;
 
@@ -11,12 +13,12 @@ public class MemesController : ControllerBase
     [HttpGet]
     public ActionResult<List<Meme>> GetAll()
     {
-        return Ok(MemesStrore.Memes);
+        return Ok(MemesStore.Memes);
     }
     [HttpGet("{id}")]
     public ActionResult<Meme> GetById(int id)
     {
-        var meme = MemesStrore.Memes.FirstOrDefault(m => m.Id == id);
+        var meme = MemesStore.Memes.FirstOrDefault(m => m.Id == id);
         if ( meme is null)
         {
             return NotFound( new { message = $"Мем с id={id} не найден" });
@@ -35,20 +37,20 @@ public class MemesController : ControllerBase
         {
             return BadRequest(new { message = "Руйтинг должен быть от 1 до 5"});
         }
-        meme.Id = MemesStrore.NextId();
+        meme.Id = MemesStore.NextId();
         meme.AddedAt = DateTime.UtcNow;
-        MemesStrore.Memes.Add(meme);
+        MemesStore.Memes.Add(meme);
         return CreatedAtAction(nameof(GetById), new { id = meme.Id }, meme );
     }
     [HttpDelete("{id}")]
     public ActionResult Delete(int id)
     {
-        var meme = MemesStrore.Memes.FirstOrDefault(m => m.Id == id);
+        var meme = MemesStore.Memes.FirstOrDefault(m => m.Id == id);
         if (meme is null)
         {
             return NotFound(new { message = $"Мем с id={id} не найден"});
         }
-        MemesStrore.Memes.Remove(meme);
+        MemesStore.Memes.Remove(meme);
         return NoContent();
     }
 }

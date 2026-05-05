@@ -1,7 +1,7 @@
 using MemesApi.Models;
 namespace MemesApi.Data;
 
-public static class MemesStrore
+public static class MemesStore
 {
     private static int _nextId =4;
     public static List<Meme> Memes {  get; } = new()
